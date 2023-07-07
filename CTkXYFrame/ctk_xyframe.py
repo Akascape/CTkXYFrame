@@ -21,7 +21,7 @@ class CTkXYFrame(customtkinter.CTkFrame):
         self.parent_frame.rowconfigure(0,weight=1)
         self.parent_frame.columnconfigure(0,weight=1)
         
-        customtkinter.CTkFrame.__init__(self, master=self.xy_canvas, **kwargs)
+        customtkinter.CTkFrame.__init__(self, master=self.xy_canvas, fg_color=self.parent_frame.cget("fg_color"))
 
         self.xy_canvas.create_window((0,0), window=self, anchor="nw")
         
