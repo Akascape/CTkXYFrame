@@ -14,15 +14,15 @@ class CTkXYFrame(customtkinter.CTkFrame):
                  scrollbar_button_color = None,
                  scrollbar_button_hover_color = None,
                  **kwargs):
-        
+
         self.parent_frame = customtkinter.CTkFrame(master=master, **kwargs)
-        self.bg_color = self.parent_frame._apply_appearance_mode(self.parent_frame.cget("fg_color"))
-        self.xy_canvas = Canvas(self.parent_frame, bg=self.bg_color, borderwidth=0, highlightthickness=0)
+        self.bg_color = self.parent_frame.cget("fg_color")
+        self.xy_canvas = Canvas(self.parent_frame, bg=self.parent_frame._apply_appearance_mode(self.bg_color), borderwidth=0, highlightthickness=0)
         self.parent_frame.rowconfigure(0,weight=1)
         self.parent_frame.columnconfigure(0,weight=1)
         
-        customtkinter.CTkFrame.__init__(self, master=self.xy_canvas, fg_color=self.parent_frame.cget("fg_color"))
-
+        customtkinter.CTkFrame.__init__(self, master=self.xy_canvas, fg_color=self.parent_frame.cget("fg_color"),
+                                        bg_color=self.parent_frame.cget("fg_color"))
         self.xy_canvas.create_window((0,0), window=self, anchor="nw")
         
         self.vsb = customtkinter.CTkScrollbar(self.parent_frame, orientation="vertical", command=self.xy_canvas.yview,
@@ -47,6 +47,10 @@ class CTkXYFrame(customtkinter.CTkFrame):
     def destroy(self):
         customtkinter.CTkFrame.destroy(self)
         self.parent_frame.destroy()
+
+    def _set_appearance_mode(self, mode_string):
+        super()._set_appearance_mode(mode_string)
+        self.xy_canvas.config(bg=self.parent_frame._apply_appearance_mode(self.bg_color))
         
     def dynamic_scrollbar_vsb(self, x, y):
         if float(x)==0.0 and float(y)==1.0:
