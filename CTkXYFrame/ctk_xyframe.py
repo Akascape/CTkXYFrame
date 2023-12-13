@@ -10,6 +10,8 @@ from tkinter import Canvas
 class CTkXYFrame(customtkinter.CTkFrame):
     def __init__(self,
                  master: any,
+                 width: int = 100,
+                 height: int = 100,
                  scrollbar_fg_color = None,
                  scrollbar_button_color = None,
                  scrollbar_button_hover_color = None,
@@ -17,7 +19,9 @@ class CTkXYFrame(customtkinter.CTkFrame):
 
         self.parent_frame = customtkinter.CTkFrame(master=master, **kwargs)
         self.bg_color = self.parent_frame.cget("fg_color")
-        self.xy_canvas = Canvas(self.parent_frame, bg=self.parent_frame._apply_appearance_mode(self.bg_color), borderwidth=0, highlightthickness=0)
+        self.xy_canvas = Canvas(self.parent_frame, width=width, height=height,
+                                bg=self.parent_frame._apply_appearance_mode(self.bg_color),
+                                borderwidth=0, highlightthickness=0)
         self.parent_frame.rowconfigure(0,weight=1)
         self.parent_frame.columnconfigure(0,weight=1)
         
@@ -113,4 +117,8 @@ class CTkXYFrame(customtkinter.CTkFrame):
             self.bg_color = kwargs["fg_color"]
             self.xy_canvas.config(bg=self.bg_color)
             self.configure(fg_color=self.bg_color)
+        if "width" in kwargs:
+            self.xy_canvas.config(bg=kwargs["width"])
+        if "height" in kwargs:
+            self.xy_canvas.config(bg=kwargs["height"])
         self.parent_frame.configure(**kwargs)
