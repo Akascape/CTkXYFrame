@@ -12,6 +12,7 @@ class CTkXYFrame(customtkinter.CTkFrame):
                  master: any,
                  width: int = 100,
                  height: int = 100,
+                 scrollbar_width: int = 16,
                  scrollbar_fg_color = None,
                  scrollbar_button_color = None,
                  scrollbar_button_hover_color = None,
@@ -31,10 +32,10 @@ class CTkXYFrame(customtkinter.CTkFrame):
         
         self.vsb = customtkinter.CTkScrollbar(self.parent_frame, orientation="vertical", command=self.xy_canvas.yview,
                                               fg_color=scrollbar_fg_color, button_color=scrollbar_button_color,
-                                              button_hover_color=scrollbar_button_hover_color)
+                                              button_hover_color=scrollbar_button_hover_color, width=scrollbar_width)
         self.hsb = customtkinter.CTkScrollbar(self.parent_frame, orientation="horizontal", command=self.xy_canvas.xview,
                                               fg_color=scrollbar_fg_color, button_color=scrollbar_button_color,
-                                              button_hover_color=scrollbar_button_hover_color)
+                                              button_hover_color=scrollbar_button_hover_color, height=scrollbar_width)
         
         self.xy_canvas.configure(yscrollcommand=lambda x,y: self.dynamic_scrollbar_vsb(x,y),
                                  xscrollcommand=lambda x,y: self.dynamic_scrollbar_hsb(x,y))
