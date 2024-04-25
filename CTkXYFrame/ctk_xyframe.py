@@ -28,7 +28,7 @@ class CTkXYFrame(customtkinter.CTkFrame):
         
         customtkinter.CTkFrame.__init__(self, master=self.xy_canvas, fg_color=self.parent_frame.cget("fg_color"),
                                         bg_color=self.parent_frame.cget("fg_color"))
-        self.xy_canvas.create_window((0,0), window=self, anchor="nw")
+        self.window_id = self.xy_canvas.create_window((0,0), window=self, anchor="nw")
         
         self.vsb = customtkinter.CTkScrollbar(self.parent_frame, orientation="vertical", command=self.xy_canvas.yview,
                                               fg_color=scrollbar_fg_color, button_color=scrollbar_button_color,
