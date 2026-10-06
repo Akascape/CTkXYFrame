@@ -135,8 +135,8 @@ class CTkXYFrame(customtkinter.CTkFrame):
     def configure(self, **kwargs):
         if "fg_color" in kwargs:
             self.bg_color = kwargs["fg_color"]
-            self.xy_canvas.config(bg=self.bg_color)
-            self.configure(fg_color=self.bg_color)
+            self.xy_canvas.config(bg=self.parent_frame._apply_appearance_mode(self.bg_color))
+            super().configure(fg_color=self.bg_color)
         if "width" in kwargs:
             self.xy_canvas.config(width=kwargs["width"])
         if "height" in kwargs:
